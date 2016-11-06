@@ -24,8 +24,11 @@ main functionality will be the points system, which needs to be kept track of an
 **Design strategy**
 _coding one thing at a time_
 >get all of the games working so that we can play them seperately and no bugs occur (probably just have to print scores out)
+
 >get the guest user class working with these games
+
 >introduce the user accounts and file processing
+
 >overload the functions and introduce dynamic binding with the cheat code option
 
 **Notes on the code**
