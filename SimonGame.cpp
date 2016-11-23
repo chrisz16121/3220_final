@@ -1,28 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <string>
-#include <vector>
-#include <iostream>
-#include <fcntl.h>
-#include <unistd.h>
-using namespace std;
+#include "head.h"
 
-class Game 
-{
-	private:
-	
-	public:
-		int SimonOutput[100];
-		int UserInput[100];
-		int rnd;
-		Game(void);
-		~Game( void );
-		void Play( void );
-		int Compare( void ); 
-		void MakeSimon( void );
-		void ClearScreen( void );
-};
 //Game class, has everything you need for a great time!
 
 Game::Game( void )
@@ -49,8 +26,9 @@ void Game::MakeSimon( void )
 }
 //Fills Simon's Output with random numbers based on time
 
-void Game::Play( void )
+void Game::Play( User* user )
 {
+	user->tokens--;
 	rnd = 0; 
 	int error = 0;
 	int k, j;
@@ -92,6 +70,12 @@ void Game::Play( void )
 	{
 		cout<<"GAME OVER!!!"<<endl<<"You made it to round "<<rnd<<"!"<<endl
 		<<"Better luck next time!"<<endl;
+		user->score = user->score + (rnd -1) * 3;//gives them points, 3 points for every round they get through
+		cout << "You were awarded " << (rnd -1) * 3 << " points, way to go!" << endl;
+		if((rnd -1) > 5){
+			cout << "You have earned your token back!" << endl;
+			user->tokens++;
+		}
 	}
 	cout<<"Simon Said: "<<endl;
 	int l;
@@ -130,19 +114,4 @@ void Game::ClearScreen( void )
 	}
 } //Bass-Ackward way to clear the screen, but it works for now
 
-int main( void )
-{
-	Game game1;
 
-	cout<<"Welcome to Chris and Ian's Arcade!!!"<<endl
-		<<"Today we will be playing Simon!"<<endl
-		<<"How to play:"<<endl<<"Input the numbers in the order they appeared"<<endl
-		<<"The game will begin in 3 seconds"<<endl;
-
-	sleep(3);	
-	game1.Play();	
-
-	cout<<"Thank you for playing!"<<endl<<"Please come again!"<<endl;
-	return 0;
-}
-//Shows the startup screen and plays the game to completion, then shows an exit message

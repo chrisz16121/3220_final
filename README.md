@@ -32,9 +32,9 @@ _coding one thing at a time_
 >overload the functions and introduce dynamic binding with the cheat code option
 
 **Notes on the code**
->
->
->
+>we currently cannot save the files 
+>so far the user accounts class has been made, but nothing can be saved
+>we will need to write a new play game method, one which will allow the user accounts to play the game as well
 
 
 **How to use program**
@@ -43,6 +43,6 @@ _coding one thing at a time_
 >
 
 **Known issues / Bugs**
->
+>the simon says game is not working quite right at the moment, we need to ensure that it will terminate as soon as the user enters an incorrect number
 >
 >
