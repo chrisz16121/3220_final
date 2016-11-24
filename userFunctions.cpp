@@ -4,6 +4,7 @@ User::User(){
 	score = 0;
 	tokens = 10;
 	accountType = 1;
+	MakeSimon();
 }
 User::~User(){
 	cout << "Goodbye!" << endl;

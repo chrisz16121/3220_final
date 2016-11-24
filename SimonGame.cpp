@@ -8,7 +8,7 @@ void User::MakeSimon( void )
 	
 	for( c=0; c<100; c++ )
 	{
-		SimonOutput[c] = (rand() % 4) + 1; 	
+		SimonOutput[c] =  ( rand()  % 4 ) + 1; 	
 	}
 }
 //Fills Simon's Output with random numbers based on time
