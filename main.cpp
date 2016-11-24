@@ -11,11 +11,11 @@ int main( void ){
 		cout << "Please try that again user!" << endl;
 		cin >> userORguest;
 	}
-	Game game1;
+	//Game game1;
 		
 	if(userORguest == 1){
 		User guestUser;
-		User* user = &guestUser;
+		//User* user = &guestUser;
 		
 		cout << "So, you are a guest now, you can choose to play either of our two games or leave the program" << endl;
 		while(1){
@@ -31,7 +31,7 @@ int main( void ){
 					<<"How to play:"<<endl<<"Input the numbers in the order they appeared"<<endl
 					<<"The game will begin in 3 seconds"<<endl;
 					sleep(3);
-					game1.Play(user);
+					guestUser.Play();
 					break;
 				case 2: 
 					cout << "NEED TO IMPLEMENT A SECOND GAME HERE" << endl;
@@ -67,8 +67,7 @@ int main( void ){
 			user1.displayInfo();
 		}
 		else{	
-			char fileString[50];
-			string fileString1;			
+			char fileString[50];		
 			cout << "Enter in the file where your data is stored" << endl;
 			cin >> fileString;
 			FILE* fp = fopen(fileString,"r");
@@ -83,9 +82,9 @@ int main( void ){
 		}
 		
 		while(1){
-			cout << "What would you like to do now?\n1: Play Simon Says\n2: Play OTHERGAME\n3: Leave the program\n4: Display your score and tokens\n5: Save your progress and exit" << endl;
+			cout << "What would you like to do now?\n1: Play Simon Says\n2: Play OTHERGAME\n3: Leave the program\n4: Display your score and tokens\n5: Save your progress" << endl;
 			cin >> userInput;
-			while(userInput != 1 && userInput != 2 && userInput != 3 && userInput != 4){
+			while(userInput != 1 && userInput != 2 && userInput != 3 && userInput != 4 && userInput != 5){
 				cout << "Please try that again user!" << endl;
 				cin >> userInput;
 			}
@@ -95,7 +94,7 @@ int main( void ){
 					<<"How to play:"<<endl<<"Input the numbers in the order they appeared"<<endl
 					<<"The game will begin in 3 seconds"<<endl;
 					sleep(3);
-					//game1.Play(user1);
+					user1.Play();
 					break;
 				case 2: 
 					cout << "NEED TO IMPLEMENT A SECOND GAME HERE" << endl;
@@ -108,35 +107,14 @@ int main( void ){
 					user1.displayInfo();
 					break;
 				case 5: 	
-					cout << "Sorry, we cannot save files at this time" << endl;
-					return 1;	
+					user1.saveFile();
+					break;	
 				default: 
 					cout << "This is the default case which should not happen, check the code" << endl;
 					break;
 			}
 		}
 	}
-	
-	//userAccount user1;
-	//user1.displayInfo();
 	return 0;
 }
 //Shows the startup screen and plays the game to completion, then shows an exit message
-User::User(){
-	score = 0;
-	tokens = 10;
-	accountType = 1;
-}
-//~User::User(){
-//	cout << "Goodbye guest!" << endl;
-//}
-userAccount::userAccount(){
-	accountType = 2;
-}
-void userAccount::displayInfo(void){
-	cout << "Hello there, " << username << " You currently have " << tokens << " tokens, and your current score is " << score << endl;
-}
-void User::displayInfo(void){
-	cout << "You currently have " << tokens << " tokens, and your current score is " << score << endl;
-}
-
