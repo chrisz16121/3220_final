@@ -7,7 +7,14 @@
 #include <time.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <string.h>
+
+#define IANPASS	"iamnotthecoolone"
+#define CHRISPASS "iamthecoolone"
+
 using namespace std;
+
+void fileHandler(void);
 class User //this class handles just about everything, i got rid of the game class so that the game could access members of the user such as the scores and the number of tokens.
 {
 	private:
@@ -42,10 +49,16 @@ class userAccount : public User
 class superAccount : public userAccount
 {
 	private:
-		void Play( void );
 		string password;
+
 	public:
-		//void displayInfo(void);
+		void modify(void);
+		void saveFile(void);
+		void Play( void );
+		void displayInfo(void);
+		superAccount();
+		double scoreMultiplier;
+		double scoreAdder;
 };
 
 		

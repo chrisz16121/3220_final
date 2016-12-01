@@ -146,6 +146,8 @@ void userAccount::Play( void )
 
 }
 void superAccount::Play( void )
+//when the super accounts play, i was thinking we could use the two doubles (located in the class definition) to help the super users cheat.
+//all we really need to do is add some way for the scores to be added differently, i will allow the users to set these two values in the modify() method
 {
 	tokens--;//it takes a token to play the game
 	rnd = 0; 
