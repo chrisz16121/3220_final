@@ -87,7 +87,6 @@ void superAccount::saveFile(void){//save files for the super account, THERE CAN 
 }
 void fileHandler(void){//void function that checks all of the files present in the directory, and will display the usernames in those files
 	int num = 5;
-	int numSaves;
 	int i = 1;
 	char user[50];
 	char fileString[10];
@@ -101,11 +100,75 @@ void fileHandler(void){//void function that checks all of the files present in t
 			fscanf(fp,"%s",user);
 			cout << "Save File " << i << ": Saved data present - "<< user << endl;
 		}
-		fclose(fp);
 		i++;
 	}
 }
 void superAccount::modify(void){//this allows the super users to do whatever they wish to their scores and tokens, it also allows them to DELETE other peoples save files just because we are assholes like that sometimes
-	cout << "need to do something here\n" << endl;
+	int terminator = 0;
+	int userInput = 1;
+	cout << "Hello there super user\nYou are here because you want to change SOMETHING, here's a menu to show what you can do" << endl;
+	while(terminator != 1){ 
+		cout << "What do you want to do now?\n1: Set the multiplier\n2: Set the adder\n3: Change your token balance\n4: Change your point total\n5: Delete someone else's account!\n6: Return to the program" << endl;
+		cin >> userInput;
+		switch(userInput){
+			case 1:
+				double num1;
+				cout << "What do you want your scores to be multiplied by?" << endl;
+				cin >> num1;
+				scoreMultiplier = num1;
+				break;
+			case 2: 
+				double num2;
+				cout << "What do you want to have added to your scores?" << endl;
+				cin >> num2;
+				scoreAdder = num2;
+				break;
+			case 3: 
+				double num3;
+				cout << "You currently have " << tokens << "how many would you like to add?" << endl;
+				cin >> num3;
+				tokens = tokens + num3;
+				cout << "You now have " << tokens << "tokens" << endl;
+				break;
+			case 4: 
+				double num4;
+				cout << "You currently have " << score << "points how many would you like to add?" << endl;
+				cin >> num4;
+				score = score + num4;
+				cout << "You now have " << score << "points" << endl;
+				break;
+			case 5:
+				int num5;
+				int fileOption;
+				char fileString[20];
+				cout << "Are you sure you want to delete someone else's account?!?!?! (1) yes (2) no" << endl;
+				cin >> num5;
+				while(num5 != 1 && num5 != 2){
+					cout << "Please try that again user!" << endl;
+					cin >> num5;
+				}
+				if(num5 == 1){
+					fileHandler();
+					cout << "Which file would you like to delete?" << endl;
+					cin >> fileOption;
+					while(fileOption < 1 || fileOption > 5){
+						cout << "Please try that again user!" << endl;
+						cin >> fileOption;
+					}
+					sprintf(fileString,"SAVEFILES/save%d.txt",fileOption);
+					FILE* fp = fopen(fileString,"r");
+					if(fp == NULL){
+						cout << "There is no file there!!!" << endl;
+						break;
+					}
+					fclose(fp);
+					remove(fileString);
+				}
+				else{
+					break;
+				}
+				break;
+			}
+	}
 }
 

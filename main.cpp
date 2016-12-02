@@ -1,4 +1,5 @@
 #include "head.h"
+
 int main( void ){
 	int userORguest;
 	int returnORnew;
@@ -128,7 +129,7 @@ int main( void ){
 		while(loopterm2 != 1){
 			cout << "What would you like to do now?\n1: Play Simon Says\n2: Play OTHERGAME\n3: Leave the program\n4: Display your score and tokens\n5: Save your progress\n6: Return to the main menu\n7: Edit your account (including scores and tokens)" << endl;
 			cin >> userInput;
-			while(userInput != 1 && userInput != 2 && userInput != 3 && userInput != 4 && userInput != 5 && userInput != 6){
+			while(userInput != 1 && userInput != 2 && userInput != 3 && userInput != 4 && userInput != 5 && userInput != 6 && userInput != 7){
 				cout << "Please try that again user!" << endl;
 				cin >> userInput;
 			}
@@ -169,4 +170,3 @@ int main( void ){
 	}
 	return 0;
 }
-//Shows the startup screen and plays the game to completion, then shows an exit message
