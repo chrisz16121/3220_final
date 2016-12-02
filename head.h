@@ -38,7 +38,6 @@ class userAccount : public User
 {
 	private:
 	public:
-		void deleteAccount(void);
 		void saveFile(void);
 		void loadFile(void);
 		userAccount();

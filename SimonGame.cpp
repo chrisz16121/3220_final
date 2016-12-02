@@ -191,8 +191,8 @@ void superAccount::Play( void )
 	{
 		cout<<"GAME OVER!!!"<<endl<<"You made it to round "<<rnd<<"!"<<endl
 		<<"Better luck next time!"<<endl;
-		score = score + (rnd -1) * 3;//gives them points, 3 points for every round they get through
-		cout << "You were awarded " << (rnd -1) * 3 << " points, way to go!" << endl;
+		score = score + ((((rnd -1) * 3)*scoreMultiplier) + scoreAdder);//gives them points, 3 points for every round they get through
+		cout << "You were awarded " << (((rnd -1) * 3)*scoreMultiplier) + scoreAdder << " points, way to go!" << endl;
 		if((rnd -1) > 5){
 			cout << "You have earned your token back!" << endl;
 

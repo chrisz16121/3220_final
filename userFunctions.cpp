@@ -34,7 +34,9 @@ superAccount::superAccount(){//constructor for the superUser class
 		fp = fopen(fileString,"r");
 		fscanf(fp,"%s\n%lf\n%lf",username,&score,&tokens);
 		fclose(fp);
-	}	
+	}
+	scoreMultiplier = 1;
+	scoreAdder = 0;	
 	accountType = 3;
 	
 }
@@ -46,7 +48,8 @@ void userAccount::displayInfo(void){
 }
 void superAccount::displayInfo(void){
 	cout << "Hello there, " << username << " You currently have " << tokens << " tokens, and your current score is " << score << endl;
-	cout << "HEY THERE! Your a super user aren't you?!?! That means your either the cool dude or the lame one\nPlease, enter your name so we can tell which user you are!!!\nDon't worry, nothing bad will happen if you enter the wrong name!" << endl;//HERES ONE PLACE WE COULD IMPLEMENT EXCEPTION HANDLING
+	cout << "Your current score multiplier is " << scoreMultiplier << "\n" << scoreAdder << " points will be added to every score you recieve in games" << endl;
+	//cout << "HEY THERE! Your a super user aren't you?!?! That means your either the cool dude or the lame one\nPlease, enter your name so we can tell which user you are!!!\nDon't worry, nothing bad will happen if you enter the wrong name!" << endl;//HERES ONE PLACE WE COULD IMPLEMENT EXCEPTION HANDLING
 }
 void userAccount::saveFile(void){//this allows access to the 5 save files available for normal users
  	fileHandler();
@@ -104,10 +107,10 @@ void fileHandler(void){//void function that checks all of the files present in t
 	}
 }
 void superAccount::modify(void){//this allows the super users to do whatever they wish to their scores and tokens, it also allows them to DELETE other peoples save files just because we are assholes like that sometimes
-	int terminator = 0;
+	int terminator = 0;//another terminator value that gets us out of our menu loop
 	int userInput = 1;
 	cout << "Hello there super user\nYou are here because you want to change SOMETHING, here's a menu to show what you can do" << endl;
-	while(terminator != 1){ 
+	while(terminator != 1){ //keeps going until the user specifies
 		cout << "What do you want to do now?\n1: Set the multiplier\n2: Set the adder\n3: Change your token balance\n4: Change your point total\n5: Delete someone else's account!\n6: Return to the program" << endl;
 		cin >> userInput;
 		switch(userInput){
@@ -116,12 +119,14 @@ void superAccount::modify(void){//this allows the super users to do whatever the
 				cout << "What do you want your scores to be multiplied by?" << endl;
 				cin >> num1;
 				scoreMultiplier = num1;
+				cout << "Your scores that you recieve in games will now be multiplied by " << scoreMultiplier << endl;
 				break;
 			case 2: 
 				double num2;
 				cout << "What do you want to have added to your scores?" << endl;
 				cin >> num2;
 				scoreAdder = num2;
+				cout << "Your scores will now have " << scoreAdder << "points appended after each game" << endl;
 				break;
 			case 3: 
 				double num3;
@@ -161,14 +166,20 @@ void superAccount::modify(void){//this allows the super users to do whatever the
 						cout << "There is no file there!!!" << endl;
 						break;
 					}
+					char deletedUser[50];
+					fscanf(fp,"%s",deletedUser);
 					fclose(fp);
 					remove(fileString);
+					cout << "File " << fileOption << "was deleted from the directory, sorry " << deletedUser << "!!!" << endl;
 				}
 				else{
 					break;
 				}
 				break;
-			}
+			case 6:
+				terminator = 1;
+				break;
+		}
 	}
 }
 
