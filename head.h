@@ -21,33 +21,32 @@ class User //this class handles just about everything, i got rid of the game cla
 	private:
 	public:
 		//virtual void Play( void );
-		double simonHigh;
-		double matchingHigh;
-		double score;
-		double tokens;
+		double simonHigh;//highest score achieved in the simon game
+		double matchingHigh;//highest score achieved in the matching game
+		double score;//the total score that the user has accumulated
+		double tokens;//number of tokens, user cannot play a game if they run out of tokens
 		int accountType; //1 for guest, 2 for user, 3 for superuser
-		virtual void displayInfo(void);
-		User();
-		~User();
-		virtual void Play();
-		int Compare( void ); 
+		virtual void displayInfo(void);//overloaded function that displays information for the user, depending on what type of user it is
+		User();//constructor for the guest user class
+		~User();//destructor, does not do anything at the moment
+		virtual void Play();//plays the game for each user
+		int Compare( void );//function to help the functionality of the game 
 		void MakeSimon( void );
-		void ClearScreen( void );
-		int SimonOutput[100];
+		void ClearScreen( void );//clears the output screen so the users cant cheat!
+		int SimonOutput[100];//make it so that there is only 100 rounds playable by the user
 		int UserInput[100];
-		int rnd;
-		virtual void scoreboard(void);
+		int rnd;//keeps track of the round the user is on
+		virtual void scoreboard(void);//void function that calls the scoreboard handler
 };
 class userAccount : public User
 {
 	private:
 	public:
-		void scoreboard(void);
-		void saveFile(void);
-		void loadFile(void);
-		userAccount();
-		void Play( void );
-		virtual void displayInfo(void);
+		void scoreboard(void);//overloaded..
+		void saveFile(void);//allows the user account access to the file system so they can save their progress
+		userAccount();//constructor for the user account class
+		void Play( void );//also overloaded so the game can access the members that guest users do not have
+		virtual void displayInfo(void);//displays the info.. overloaded
 		char username[50];
 };
 class superAccount : public userAccount
@@ -68,14 +67,12 @@ class scoreEntry
 {
 	private:
 	public:
-		int savefiles;
-		void displayBoard(void);
-		void sortByScore(void);
-		void sortBySimon(void);
-		void sortByMatching(void);
-		scoreEntry();
+		int savefiles;//keeps track of the number of save files present in the directory
+		void displayBoard(void);//displays the board regardless of how it is sorted
+		void sortByScore(void);//sorts according to the "score" parameter loacted in the user class
+		void sortBySimon(void); //sorts according to the "simonHigh" parameter loacted in the user class
+		void sortByMatching(void);//sorts according to the "matchingHigh" parameter loacted in the user class
+		scoreEntry();//constructs the scoreboard class, this constructor allocates the memory needed and checks the file repository
 		~scoreEntry();//destructor that will deallocate the memory we needed
-		userAccount* userarray;
+		userAccount* userarray;//an ARRAY of user accounts that we will use to sort, and then display the scoreboard
 };
-
-		

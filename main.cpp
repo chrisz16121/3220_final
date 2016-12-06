@@ -13,11 +13,22 @@ int main( void ){
 	loopterm = 0;
 	loopterm2 = 0;
 	cout << "HELLO USER!!!\nAnd welcome to our arcade!!! Would you like to play as a guest today? (1) yes (2) no\nPSST try entering (3) to see what happens!" << endl;
-	cin >> userORguest;
-	while(userORguest != 1 && userORguest != 2 && userORguest != 3){
-		cout << "Please try that again user!" << endl;
+	//cin >> userORguest;
+	while(true){
 		cin >> userORguest;
+		if(userORguest == 1 || userORguest == 2 || userORguest == 3){
+			break;
+		}
+		else if(cin.fail()){
+			cin.clear();
+			cin.ignore();
+			cout << "Please try that again user!" << endl;
+		}
+		else if(userORguest < 1 || userORguest > 3){
+			cout << "Please try that again user!" << endl;
+		}
 	}
+	
 	//Game game1;
 		
 	if(userORguest == 1){
@@ -27,10 +38,19 @@ int main( void ){
 		cout << "So, you are a guest now, you can choose to play either of our two games or leave the program" << endl;
 		while(loopterm != 1){
 			cout << "What would you like to do now?\n1: Play Simon Says\n2: Play OTHERGAME\n3: Leave the program\n4: Display your score and tokens\n5: Display the high score board\n6: Return to the main menu" << endl;
-			cin >> userInput;
-			while(userInput != 1 && userInput != 2 && userInput != 3 && userInput != 4 && userInput != 5 && userInput != 6){
-				cout << "Please try that again user!" << endl;
-				cin >> userInput;
+			while(true){
+		 		cin >> userInput;
+				if(userInput == 1 || userInput == 2 || userInput ==3 || userInput == 4 || userInput == 5 || userInput == 6){
+				break;
+				}
+				else if(cin.fail()){
+					cin.clear();
+					cin.ignore();
+					cout << "Please try that again user!" << endl;
+				}
+				else if(userInput < 1 || userInput > 6){
+					cout << "Please try that again user!" << endl;
+				}
 			}
 			switch(userInput){
 				case 1:
@@ -66,10 +86,19 @@ int main( void ){
 		userAccount user1;
 		//user1.displayInfo();
 		cout << "Are you a returning user? (1) yes (2) no" << endl;
-		cin >> returnORnew;
-		while(returnORnew != 1 && returnORnew != 2){
-			cout << "Please try that again user!" <<endl;
-			cin >> returnORnew;
+		while(true){
+			cin >> returnORnew;	
+			if(returnORnew == 1 || returnORnew == 2){
+				break;
+			}
+			else if(cin.fail()){
+				cin.clear();
+				cin.ignore();
+				cout << "Please try that again user!" << endl;
+			}
+			else if(returnORnew < 1 || returnORnew > 2){
+				cout << "Please try that again user!" << endl;
+			}
 		}
 		if(returnORnew == 2){
 			cout << "Please enter a username for yourself" << endl;
@@ -98,10 +127,19 @@ int main( void ){
 		loopterm = 0;
 		while(loopterm != 1){
 			cout << "What would you like to do now?\n1: Play Simon Says\n2: Play OTHERGAME\n3: Leave the program\n4: Display your score and tokens\n5: Display the high score board\n6: Save your progress\n7: Return to the main menu" << endl;
-			cin >> userInput;
-			while(userInput != 1 && userInput != 2 && userInput != 3 && userInput != 4 && userInput != 5 && userInput != 6 && userInput != 7){
-				cout << "Please try that again user!" << endl;
-				cin >> userInput;
+			while(true){
+		 		cin >> userInput;
+				if(userInput == 1 || userInput == 2 || userInput ==3 || userInput == 4 || userInput == 5 || userInput == 6 || userInput ==7){
+				break;
+				}
+				else if(cin.fail()){
+					cin.clear();
+					cin.ignore();
+					cout << "Please try that again user!" << endl;
+				}
+				else if(userInput < 1 || userInput > 7){
+					cout << "Please try that again user!" << endl;
+				}
 			}
 			switch(userInput){
 				case 1:
@@ -140,10 +178,19 @@ int main( void ){
 		superAccount user2;
 		while(loopterm2 != 1){
 			cout << "What would you like to do now?\n1: Play Simon Says\n2: Play OTHERGAME\n3: Leave the program\n4: Display your score and tokens\n5: Display the high score board\n6: Save your progress\n7: Return to the main menu\n8: Edit your account (including scores and tokens)" << endl;
-			cin >> userInput;
-			while(userInput != 1 && userInput != 2 && userInput != 3 && userInput != 4 && userInput != 5 && userInput != 6 && userInput != 7 && userInput != 8){
-				cout << "Please try that again user!" << endl;
-				cin >> userInput;
+			while(true){
+		 		cin >> userInput;
+				if(userInput == 1 || userInput == 2 || userInput ==3 || userInput == 4 || userInput == 5 || userInput == 6 || userInput ==7 || userInput == 8){
+				break;
+				}
+				else if(cin.fail()){
+					cin.clear();
+					cin.ignore();
+					cout << "Please try that again user!" << endl;
+				}
+				else if(userInput < 1 || userInput > 8){
+					cout << "Please try that again user!" << endl;
+				}
 			}
 			switch(userInput){
 				case 1:

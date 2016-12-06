@@ -17,19 +17,24 @@ superAccount::superAccount(){//constructor for the superUser class
 	FILE* fp;
 	char fileString[50];
 	cout << "Please enter your password:" << endl;
-	cin >> userPass;
-	if(strcmp(userPass,CHRISPASS) != 0 && strcmp(userPass,IANPASS) != 0){//checks the password, otherwise throws an error and will return to the main menu
-		cout << "ERROR ERROR ERROR that is not the correct password!" << endl;
+	while(true){
+		cin >> userPass;
+		if(strcmp(userPass,CHRISPASS) == 0 || strcmp(userPass,IANPASS) ==0){//checks the password, otherwise throws an error and will return to the main menu
+			break;
+		}
+		else{
+			cout << "ERROR ERROR ERROR that is not the correct password!" << endl;
+		}
 	}
-	else if(strcmp(userPass,CHRISPASS) == 0){
-		cout << "HELLO CHRIS!!! SO GREAT TO SEE YOU!" << endl;
+	if(strcmp(userPass,CHRISPASS) == 0){
+		cout << "HELLO CHRIS!!! SO GREAT TO SEE YOU!" << endl;//beacuse the program actually enjoys chris using it
 		sprintf(fileString,"SAVEFILES/chris.txt");
 		fp = fopen(fileString,"r");
 		fscanf(fp,"%s\n%lf\n%lf\n%lf\n%lf",username,&score,&tokens,&simonHigh,&matchingHigh);
 		fclose(fp);
 	}
 	else{
-		cout << "Oh... hey Ian" << endl;
+		cout << "Oh... hey Ian" << endl;//ian and the program are no longer on speaking terms, will be in a bad mood if ian accesses it
 		sprintf(fileString,"SAVEFILES/ian.txt");
 		fp = fopen(fileString,"r");
 		fscanf(fp,"%s\n%lf\n%lf\n%lf\n%lf",username,&score,&tokens,&simonHigh,&matchingHigh);
@@ -58,15 +63,37 @@ void userAccount::saveFile(void){//this allows access to the 5 save files availa
 	char fileString[50];
 	while(1){
 		cout << "Where do you want your file to be stored?" << endl;	
-		cin >> option;
+		while(true){
+			cin >> option;
+			if(option == 1 || option == 2 || option == 3 || option == 4 || option == 5){
+				break;
+			}
+			else if(cin.fail()){
+				cin.clear();
+				cin.ignore();
+				cout << "Please try that again user!" << endl;
+			}
+			else if(option < 1 || option > 5){
+				cout << "Please try that again user!" << endl;
+			}
+		}
 		sprintf(fileString,"SAVEFILES/save%d.txt",option);
 		FILE* testFile = fopen(fileString,"r");
 		if(testFile != NULL){
 			cout << "There already exists a file here, would you like to overwrite it? (1) Yes (2) No" << endl;
-			cin >> userOpt;
-			while(userOpt != 1 && userOpt != 2){
-				cout << "Please try that again user!" << endl;
+			while(true){
 				cin >> userOpt;
+				if(userOpt == 1 || userOpt == 2){
+					break;
+				}
+				else if(cin.fail()){
+					cin.clear();
+					cin.ignore();
+					cout << "Please try that again user!" << endl;
+				}
+				else if(userOpt < 1 || userOpt > 2){
+					cout << "Please try that again user!" << endl;
+				}
 			}
 			if(userOpt == 1) break;
 			fclose(testFile);
@@ -112,7 +139,20 @@ void superAccount::modify(void){//this allows the super users to do whatever the
 	cout << "Hello there super user\nYou are here because you want to change SOMETHING, here's a menu to show what you can do" << endl;
 	while(terminator != 1){ //keeps going until the user specifies
 		cout << "What do you want to do now?\n1: Set the multiplier\n2: Set the adder\n3: Change your token balance\n4: Change your point total\n5: Delete someone else's account!\n6: Return to the program" << endl;
-		cin >> userInput;
+		while(true){
+			cin >> userInput;
+			if(userInput == 1 || userInput == 2 || userInput == 3 || userInput == 4 || userInput == 5 || userInput == 6){
+				break;
+			}
+			else if(cin.fail()){
+				cin.clear();
+				cin.ignore();
+				cout << "Please try that again user!" << endl;
+			}
+			else if(userInput < 1 || userInput > 6){
+				cout << "Please try that again user!" << endl;
+			}
+		}
 		switch(userInput){
 			case 1:
 				double num1;
@@ -143,22 +183,40 @@ void superAccount::modify(void){//this allows the super users to do whatever the
 				cout << "You now have " << score << "points" << endl;
 				break;
 			case 5:
-				int num5;
+				int userOpt;
 				int fileOption;
 				char fileString[20];
 				cout << "Are you sure you want to delete someone else's account?!?!?! (1) yes (2) no" << endl;
-				cin >> num5;
-				while(num5 != 1 && num5 != 2){
-					cout << "Please try that again user!" << endl;
-					cin >> num5;
+				while(true){
+					cin >> userOpt;
+					if(userOpt == 1 || userOpt == 2){
+						break;			
+					}	
+					else if(cin.fail()){
+						cin.clear();
+						cin.ignore();
+						cout << "Please try that again user!" << endl;
+					}
+					else if(userOpt < 1 || userOpt > 2){
+						cout << "Please try that again user!" << endl;
+					}
 				}
-				if(num5 == 1){
+				if(userOpt == 1){
 					fileHandler();
 					cout << "Which file would you like to delete?" << endl;
-					cin >> fileOption;
-					while(fileOption < 1 || fileOption > 5){
-						cout << "Please try that again user!" << endl;
+					while(true){
 						cin >> fileOption;
+						if(fileOption == 1 || fileOption == 2 || fileOption == 3 || fileOption == 4 || fileOption == 5 || fileOption == 6){
+							break;
+						}
+						else if(cin.fail()){
+							cin.clear();
+							cin.ignore();
+							cout << "Please try that again user!" << endl;
+						}
+						else if(fileOption < 1 || fileOption > 5){
+							cout << "Please try that again user!" << endl;
+						}
 					}
 					sprintf(fileString,"SAVEFILES/save%d.txt",fileOption);
 					FILE* fp = fopen(fileString,"r");
@@ -188,7 +246,20 @@ void userAccount::scoreboard(void){//void function that will create a score clas
 	int userOpt;
 	scoreEntry entry;//function allows the user to sort according to three different choices
 		cout << "How do you want to sort the scoreboard?\n1:By total score\n2:By highest Simon Says score\n3:By highest Matching score" << endl;
-		cin >> userOpt;
+		while(true){
+			cin >> userOpt;
+			if(userOpt == 1 || userOpt == 2 || userOpt == 3){
+				break;			
+			}	
+			else if(cin.fail()){
+				cin.clear();
+				cin.ignore();
+				cout << "Please try that again user!" << endl;
+			}
+			else if(userOpt < 1 || userOpt > 3){
+				cout << "Please try that again user!" << endl;
+			}
+		}
 		switch(userOpt){
 			case 1: 	
 			//	entry.displayBoard();
@@ -219,7 +290,20 @@ void User::scoreboard(void){//void function, same as the useraAccount one but it
 	int userOpt;
 	scoreEntry entry;//function allows the user to sort according to three different choices
 		cout << "How do you want to sort the scoreboard?\n1:By total score\n2:By highest Simon Says score\n3:By highest Matching score" << endl;
-		cin >> userOpt;
+		while(true){
+			cin >> userOpt;
+			if(userOpt == 1 || userOpt == 2 || userOpt == 3){
+				break;			
+			}	
+			else if(cin.fail()){
+				cin.clear();
+				cin.ignore();
+				cout << "Please try that again user!" << endl;
+			}
+			else if(userOpt < 1 || userOpt > 3){
+				cout << "Please try that again user!" << endl;
+			}
+		}
 		switch(userOpt){
 			case 1: 	
 			//	entry.displayBoard();
@@ -253,7 +337,7 @@ scoreEntry::scoreEntry(){//this is the constructor for the score entry class. It
 			userarray[i].simonHigh = 0;
 			userarray[i].matchingHigh = 0;
 			*/
-			cout << "no file" << endl;
+			//cout << "no file" << endl;
 		}
 		else{
 			double dummy;
@@ -357,11 +441,11 @@ void scoreEntry::sortByMatching(void){//identical to the other two sorts, this s
 	}
 	*/
 }
-void scoreEntry::displayBoard(void){//void function that displays the members of the array that has been sorted, had a bit of issues getting the output to look nice with different sized names
+void scoreEntry::displayBoard(void){//void function that displays the members of the array that has been sorted
 	int i;
-	cout << "\n\n\t\t\t\tSCOREBOARD\n" << endl;
-	cout << ": User Name\t\tScore\t\tSimon high score\t\tMatching high score\n" << endl;
+	cout << "\n\n\t\t\t\t\t\t\tSCOREBOARD\n" << endl;
+	cout << "\t\tScore\t\tSimon high score\t\tMatching high score\t\tUsername\n" << endl;
 	for(i=0;i<(savefiles+1);i++){
-		cout << i + 1 << ": " << userarray[i].username << "\t\t" << userarray[i].score << "\t\t" << userarray[i].simonHigh << "\t\t" << userarray[i].matchingHigh << endl;
+		cout << i + 1 << ": " << "\t\t" << userarray[i].score << "\t\t" << userarray[i].simonHigh << "\t\t\t\t" << userarray[i].matchingHigh << "\t\t\t\t" << userarray[i].username << endl;
 	}
 }
