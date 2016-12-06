@@ -119,6 +119,10 @@ void userAccount::Play( void )
 		<<"Better luck next time!"<<endl;
 		score = score + (rnd -1) * 3;//gives them points, 3 points for every round they get through
 		cout << "You were awarded " << (rnd -1) * 3 << " points, way to go!" << endl;
+		if(((rnd-1)*3) > simonHigh){
+			cout<< "You've set a new personal high score!!! WAY TO GO!!!" << endl;
+			simonHigh = (rnd-1)*3;
+		}
 		if((rnd -1) > 5){
 			cout << "You have earned your token back!" << endl;
 

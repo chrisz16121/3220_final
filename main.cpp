@@ -25,10 +25,10 @@ int main( void ){
 		//User* user = &guestUser;
 		
 		cout << "So, you are a guest now, you can choose to play either of our two games or leave the program" << endl;
-		while(1){
-			cout << "What would you like to do now?\n1: Play Simon Says\n2: Play OTHERGAME\n3: Leave the program\n4: Display your score and tokens" << endl;
+		while(loopterm != 1){
+			cout << "What would you like to do now?\n1: Play Simon Says\n2: Play OTHERGAME\n3: Leave the program\n4: Display your score and tokens\n5: Display the high score board\n6: Return to the main menu" << endl;
 			cin >> userInput;
-			while(userInput != 1 && userInput != 2 && userInput != 3 && userInput != 4 && userInput != 5){
+			while(userInput != 1 && userInput != 2 && userInput != 3 && userInput != 4 && userInput != 5 && userInput != 6){
 				cout << "Please try that again user!" << endl;
 				cin >> userInput;
 			}
@@ -51,7 +51,10 @@ int main( void ){
 					guestUser.displayInfo();//calls the first displayInfo, only the scores and tokens will be printed
 					break;
 				case 5: 
+					guestUser.scoreboard();
 					break;
+				case 6:
+					loopterm = 1;
 				default: 
 					cout << "This is the default case which should not happen, check the code" << endl;
 					break;
@@ -82,15 +85,21 @@ int main( void ){
 			cin >> userFileOpt;
 			sprintf(fileString,"SAVEFILES/save%d.txt",userFileOpt);
 			FILE* fp = fopen(fileString,"r");
-			fscanf(fp,"%s\n%lf\n%lf",user1.username,&user1.score,&user1.tokens);
+			while(fp == NULL){
+				cout << "There is not file present here! Try specfying the file again" << endl;
+				cin >> userFileOpt;
+				sprintf(fileString,"SAVEFILES/save%d.txt",userFileOpt);
+				FILE* fp = fopen(fileString,"r");
+			}
+			fscanf(fp,"%s\n%lf\n%lf\n%lf\n%lf",user1.username,&user1.score,&user1.tokens,&user1.simonHigh,&user1.matchingHigh);
 			user1.displayInfo();
 			fclose(fp);			 
 		}
-		
+		loopterm = 0;
 		while(loopterm != 1){
-			cout << "What would you like to do now?\n1: Play Simon Says\n2: Play OTHERGAME\n3: Leave the program\n4: Display your score and tokens\n5: Save your progress\n6:Return to the main menu" << endl;
+			cout << "What would you like to do now?\n1: Play Simon Says\n2: Play OTHERGAME\n3: Leave the program\n4: Display your score and tokens\n5: Display the high score board\n6: Save your progress\n7: Return to the main menu" << endl;
 			cin >> userInput;
-			while(userInput != 1 && userInput != 2 && userInput != 3 && userInput != 4 && userInput != 5 && userInput != 6){
+			while(userInput != 1 && userInput != 2 && userInput != 3 && userInput != 4 && userInput != 5 && userInput != 6 && userInput != 7){
 				cout << "Please try that again user!" << endl;
 				cin >> userInput;
 			}
@@ -112,10 +121,13 @@ int main( void ){
 				case 4: 
 					user1.displayInfo();
 					break;
-				case 5: 	
+				case 5:
+					user1.scoreboard();
+					break;
+				case 6: 	
 					user1.saveFile();
 					break;	
-				case 6: 
+				case 7: 
 					loopterm = 1;
 					break;
 				default: 
@@ -127,9 +139,9 @@ int main( void ){
 	else{//entering into the domain of the super users... 
 		superAccount user2;
 		while(loopterm2 != 1){
-			cout << "What would you like to do now?\n1: Play Simon Says\n2: Play OTHERGAME\n3: Leave the program\n4: Display your score and tokens\n5: Save your progress\n6: Return to the main menu\n7: Edit your account (including scores and tokens)" << endl;
+			cout << "What would you like to do now?\n1: Play Simon Says\n2: Play OTHERGAME\n3: Leave the program\n4: Display your score and tokens\n5: Display the high score board\n6: Save your progress\n7: Return to the main menu\n8: Edit your account (including scores and tokens)" << endl;
 			cin >> userInput;
-			while(userInput != 1 && userInput != 2 && userInput != 3 && userInput != 4 && userInput != 5 && userInput != 6 && userInput != 7){
+			while(userInput != 1 && userInput != 2 && userInput != 3 && userInput != 4 && userInput != 5 && userInput != 6 && userInput != 7 && userInput != 8){
 				cout << "Please try that again user!" << endl;
 				cin >> userInput;
 			}
@@ -151,13 +163,16 @@ int main( void ){
 				case 4: 
 					user2.displayInfo();
 					break;
-				case 5: 	
+				case 5: 
+					user2.scoreboard();
+					break;
+				case 6: 	
 					user2.saveFile();
 					break;	
-				case 6: 
+				case 7: 
 					loopterm2 = 1;
 					break;
-				case 7:
+				case 8:
 					user2.modify();//allows us to do whatever we want to the scores and tokens
 					break;
 				default: 

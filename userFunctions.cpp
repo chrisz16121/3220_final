@@ -25,14 +25,14 @@ superAccount::superAccount(){//constructor for the superUser class
 		cout << "HELLO CHRIS!!! SO GREAT TO SEE YOU!" << endl;
 		sprintf(fileString,"SAVEFILES/chris.txt");
 		fp = fopen(fileString,"r");
-		fscanf(fp,"%s\n%lf\n%lf",username,&score,&tokens);
+		fscanf(fp,"%s\n%lf\n%lf\n%lf\n%lf",username,&score,&tokens,&simonHigh,&matchingHigh);
 		fclose(fp);
 	}
 	else{
 		cout << "Oh... hey Ian" << endl;
 		sprintf(fileString,"SAVEFILES/ian.txt");
 		fp = fopen(fileString,"r");
-		fscanf(fp,"%s\n%lf\n%lf",username,&score,&tokens);
+		fscanf(fp,"%s\n%lf\n%lf\n%lf\n%lf",username,&score,&tokens,&simonHigh,&matchingHigh);
 		fclose(fp);
 	}
 	scoreMultiplier = 1;
@@ -74,7 +74,7 @@ void userAccount::saveFile(void){//this allows access to the 5 save files availa
 		else break;
 	}
 	FILE* fp = fopen(fileString,"w");
-	fprintf(fp,"%s\n%lf\n%lf",username,score,tokens);	
+	fprintf(fp,"%s\n%lf\n%lf\n%lf\n%lf",username,score,tokens,simonHigh,matchingHigh);	
 	fclose(fp); 
 }
 void superAccount::saveFile(void){//save files for the super account, THERE CAN ONLY BE TWO SUPER ACCOUNTS AND THE FILES ALWAYS EXIST
@@ -84,7 +84,7 @@ void superAccount::saveFile(void){//save files for the super account, THERE CAN 
 	if(strcmp(username,"Ian") == 1) sprintf(fileString,"SAVEFILES/ian.txt");
 	else sprintf(fileString,"SAVEFILES/chris.txt");
 	fp = fopen(fileString,"w");
-	fprintf(fp,"%s\n%lf\n%lf",username,score,tokens);
+	fprintf(fp,"%s\n%lf\n%lf\n%lf\n%lf",username,score,tokens,simonHigh,matchingHigh);
 	fclose(fp);
 	cout << "\nYour progress was saved!" << endl;
 }
@@ -182,4 +182,186 @@ void superAccount::modify(void){//this allows the super users to do whatever the
 		}
 	}
 }
+void userAccount::scoreboard(void){//void function that will create a score class, sort it and then display the resulting score board
+	int terminator =2;
+	int i = 0;		
+	int userOpt;
+	scoreEntry entry;//function allows the user to sort according to three different choices
+		cout << "How do you want to sort the scoreboard?\n1:By total score\n2:By highest Simon Says score\n3:By highest Matching score" << endl;
+		cin >> userOpt;
+		switch(userOpt){
+			case 1: 	
+			//	entry.displayBoard();
+				entry.sortByScore();//using the member functions of the score entry class 
+				entry.displayBoard();//all void functions
+				break;
+			case 2:
+				entry.sortBySimon();
+				entry.displayBoard();
+				break;
+			case 3:
+				entry.sortByMatching();
+				entry.displayBoard();
+				break;
+			default:
+				break;
+		}
+	
 
+}
+scoreEntry::~scoreEntry(){
+	//delete userarray;//this is giving me a compile error... pretty sure it is the only memory i have allocated
+}
+void User::scoreboard(void){//void function, same as the useraAccount one but it warns the user that guests cannot save their scores. 
+	cout << "PLEASE NOTE: Since you are a guest, your scores will not be displayed on this board, to save your scores and have them displayed, you must create an account first!" << endl;
+	int terminator =2;
+	int i = 0;		
+	int userOpt;
+	scoreEntry entry;//function allows the user to sort according to three different choices
+		cout << "How do you want to sort the scoreboard?\n1:By total score\n2:By highest Simon Says score\n3:By highest Matching score" << endl;
+		cin >> userOpt;
+		switch(userOpt){
+			case 1: 	
+			//	entry.displayBoard();
+				entry.sortByScore();//using the member functions of the score entry class 
+				entry.displayBoard();//all void functions
+				break;
+			case 2:
+				entry.sortBySimon();
+				entry.displayBoard();
+				break;
+			case 3:
+				entry.sortByMatching();
+				entry.displayBoard();
+				break;
+			default:
+				break;
+		}
+}
+scoreEntry::scoreEntry(){//this is the constructor for the score entry class. It creates an array of all possible users in the memory of the game in order to display their scores publicly
+	userarray = new userAccount[NUMSAVES+2];//creates an ARRAY of user accounts that will be sorted and used to display a scoreboard
+	int i = 0;
+	savefiles=0;
+	while(i < NUMSAVES){//first reads all of the possible save files, then later checks for the two super user accounts
+		char fileString[20];
+		FILE* fp;
+		sprintf(fileString,"SAVEFILES/save%d.txt",i+1);
+		fp = fopen(fileString,"r");
+		if(fp == NULL){
+			/*strcpy(userarray[i].username,"NOFILE");//had to use the string copy function instead of directing pointers
+			userarray[i].score = 0;
+			userarray[i].simonHigh = 0;
+			userarray[i].matchingHigh = 0;
+			*/
+			cout << "no file" << endl;
+		}
+		else{
+			double dummy;
+			fscanf(fp,"%s\n%lf\n%lf\n%lf\n%lf",userarray[savefiles].username,&userarray[savefiles].score,&dummy,&userarray[savefiles].simonHigh,&userarray[savefiles].matchingHigh);//reads in the data from each file 
+			//cout << "DATA FOUND: " << userarray[i].username << userarray[i].score << userarray[i].simonHigh << userarray[i].matchingHigh << endl;
+	//		fclose(fp);
+			savefiles++;
+		}
+		i++;
+	}
+	char fileString[50];//now we get the data for the two super users
+	FILE* fp;//this data will be handled along with the rest, as well as sorted with everything else.
+	double dummy;
+	sprintf(fileString,"SAVEFILES/chris.txt");
+	fp = fopen(fileString,"r");
+	fscanf(fp,"%s\n%lf\n%lf\n%lf\n%lf",userarray[savefiles].username,&userarray[savefiles].score,&dummy,&userarray[savefiles].simonHigh,&userarray[savefiles].matchingHigh);
+	//cout << "DATA FOUND: " << userarray[i].username << userarray[i].score << userarray[i].simonHigh << userarray[i].matchingHigh << endl;
+	fclose(fp);
+	savefiles++;
+	sprintf(fileString,"SAVEFILES/ian.txt");
+	fp = fopen(fileString,"r");
+	fscanf(fp,"%s\n%lf\n%lf\n%lf\n%lf",userarray[savefiles].username,&userarray[savefiles].score,&dummy,&userarray[savefiles].simonHigh,&userarray[savefiles].matchingHigh);
+	//cout << "DATA FOUND: " << userarray[i].username << userarray[i].score << userarray[i].simonHigh << userarray[i].matchingHigh << endl;
+	fclose(fp);
+	
+}
+void scoreEntry::sortByScore(void){
+	int i;
+	int j;
+	int k;
+	userAccount temp;
+	/*cout << "BEFORE" << endl;//these were here to check the inputs and outputs of the sorting function
+	for(k=0;k<NUMSAVES+2;k++){
+		cout << "Score: " << userarray[k].score << endl;
+	}
+	*/
+	for(i=0;i<((savefiles+2)-1);i++){
+		for(j=0;j<((savefiles+2)-i-1);j++){
+			if(userarray[j].score < userarray[j+1].score){//sorts the data in descending order
+				temp = userarray[j];
+				userarray[j] = userarray[j+1];
+				userarray[j+1] = temp;
+				
+			}
+		}
+	}
+	/*cout << "AFTER" << endl;
+	for(k=0;k<NUMSAVES+2;k++){
+		cout << "Score: " << userarray[k].score << endl;
+	}
+	*/
+}
+void scoreEntry::sortBySimon(void){
+	int i;
+	int j;
+	int k;
+	userAccount temp;
+	/*cout << "BEFORE" << endl;
+	for(k=0;k<NUMSAVES+2;k++){
+		cout << "Score: " << userarray[k].score << endl;
+	}
+	*/
+	for(i=0;i<((savefiles+2)-1);i++){
+		for(j=0;j<((savefiles+2)-i-1);j++){
+			if(userarray[j].simonHigh < userarray[j+1].simonHigh){
+				temp = userarray[j];
+				userarray[j] = userarray[j+1];
+				userarray[j+1] = temp;
+			}
+		}
+	}
+	/*
+	cout << "AFTER" << endl;
+	for(k=0;k<NUMSAVES+2;k++){
+		cout << "Score: " << userarray[k].score << endl;
+	}
+	*/
+}
+void scoreEntry::sortByMatching(void){//identical to the other two sorts, this sorts according to the high score in the matching game
+	int i;
+	int j;
+	int k;
+	userAccount temp;
+	/*cout << "BEFORE" << endl;
+	for(k=0;k<NUMSAVES+2;k++){
+		cout << "Score: " << userarray[k].score << endl;
+	}
+	*/
+	for(i=0;i<((savefiles+2)-1);i++){
+		for(j=0;j<((savefiles+2)-i-1);j++){
+			if(userarray[j].matchingHigh < userarray[j+1].matchingHigh){
+				temp = userarray[j];
+				userarray[j] = userarray[j+1];
+				userarray[j+1] = temp;
+			}
+		}
+	}
+	/*cout << "AFTER" << endl;
+	for(k=0;k<NUMSAVES+2;k++){
+		cout << "Score: " << userarray[k].score << endl;
+	}
+	*/
+}
+void scoreEntry::displayBoard(void){//void function that displays the members of the array that has been sorted, had a bit of issues getting the output to look nice with different sized names
+	int i;
+	cout << "\n\n\t\t\t\tSCOREBOARD\n" << endl;
+	cout << ": User Name\t\tScore\t\tSimon high score\t\tMatching high score\n" << endl;
+	for(i=0;i<(savefiles+1);i++){
+		cout << i + 1 << ": " << userarray[i].username << "\t\t" << userarray[i].score << "\t\t" << userarray[i].simonHigh << "\t\t" << userarray[i].matchingHigh << endl;
+	}
+}

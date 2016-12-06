@@ -9,8 +9,9 @@
 #include <unistd.h>
 #include <string.h>
 
-#define IANPASS	"iamnotthecoolone"
-#define CHRISPASS "iamthecoolone"
+#define NUMSAVES 5//set as the maximum number of files that we allow the users to save at the moment
+#define IANPASS	"iamnotthecoolone"//password to get to ians account
+#define CHRISPASS "iamthecoolone"//password for chris's account
 
 using namespace std;
 
@@ -20,6 +21,8 @@ class User //this class handles just about everything, i got rid of the game cla
 	private:
 	public:
 		//virtual void Play( void );
+		double simonHigh;
+		double matchingHigh;
 		double score;
 		double tokens;
 		int accountType; //1 for guest, 2 for user, 3 for superuser
@@ -33,11 +36,13 @@ class User //this class handles just about everything, i got rid of the game cla
 		int SimonOutput[100];
 		int UserInput[100];
 		int rnd;
+		virtual void scoreboard(void);
 };
 class userAccount : public User
 {
 	private:
 	public:
+		void scoreboard(void);
 		void saveFile(void);
 		void loadFile(void);
 		userAccount();
@@ -58,6 +63,19 @@ class superAccount : public userAccount
 		superAccount();
 		double scoreMultiplier;
 		double scoreAdder;
+};
+class scoreEntry
+{
+	private:
+	public:
+		int savefiles;
+		void displayBoard(void);
+		void sortByScore(void);
+		void sortBySimon(void);
+		void sortByMatching(void);
+		scoreEntry();
+		~scoreEntry();//destructor that will deallocate the memory we needed
+		userAccount* userarray;
 };
 
 		
