@@ -40,7 +40,22 @@ void User::Play( void )
 		
 		for( j=0; j<rnd; j++)
 		{
-			cin>>UserInput[j];
+			int dummy;
+			while(true){
+				cin >> dummy;
+				if(dummy == 1 || dummy == 2 || dummy == 3 || dummy == 4){
+					break;
+				}
+				else if(cin.fail()){
+					cin.clear();
+					cin.ignore();
+					cout << "Please try that again user!" << endl;
+				}
+				else if(dummy < 1 || dummy > 4){
+					cout << "Please try that again user!" << endl;
+				}
+			}
+			UserInput[j] = dummy;
 		}
 		
 		error = Compare();
@@ -79,7 +94,6 @@ void userAccount::Play( void )
 	rnd = 0; 
 	int error = 0;
 	int k, j;
-	
 	while( error != 1 )
 	{
 		rnd++;
@@ -88,21 +102,32 @@ void userAccount::Play( void )
 			break;
 		}
 		cout<<"Round "<<rnd<<endl<<"Simon says:"<<endl;
-		
 		for( k=0; k<rnd; k++)
 		{
 			cout<<SimonOutput[k]<<endl;
 			sleep(2);
 			ClearScreen();
 		}
-		
 		cout<<"Enter what Simon said one number at a time:"<<endl;
-		
 		for( j=0; j<rnd; j++)
 		{
-			cin>>UserInput[j];
+			int dummy;
+			while(true){
+				cin >> dummy;
+				if(dummy == 1 || dummy == 2 || dummy == 3 || dummy == 4){
+					break;
+				}
+				else if(cin.fail()){
+					cin.clear();
+					cin.ignore();
+					cout << "Please try that again user!" << endl;
+				}
+				else if(dummy < 1 || dummy > 4){
+					cout << "Please try that again user!" << endl;
+				}
+			}
+			UserInput[j] = dummy;
 		}
-		
 		error = Compare();
 	}
 //Plays Simon by displaying	the output and having the user enter what was displayed
@@ -178,7 +203,22 @@ void superAccount::Play( void )
 		
 		for( j=0; j<rnd; j++)
 		{
-			cin>>UserInput[j];
+			int dummy;
+			while(true){
+				cin >> dummy;
+				if(dummy == 1 || dummy == 2 || dummy == 3 || dummy == 4){
+					break;
+				}
+				else if(cin.fail()){
+					cin.clear();
+					cin.ignore();
+					cout << "Please try that again user!" << endl;
+				}
+				else if(dummy < 1 || dummy > 4){
+					cout << "Please try that again user!" << endl;
+				}
+			}
+			UserInput[j] = dummy;
 		}
 		
 		error = Compare();
@@ -223,9 +263,6 @@ void superAccount::Play( void )
 // The game then displays the correct message and Simon's Output up to the round the user made it	
 
 }
-
-
-
 int User::Compare( void )
 {
 	int i;
@@ -236,14 +273,10 @@ int User::Compare( void )
 		{
 			return 1;
 		}
-		else
-		{
-			return 0;
-		}
 	}
+	return 0;
 }
 // Compares the user's input and Simon's output and returns a 0 on success and 1 on failure
-
 void User::ClearScreen( void )
 {
 	int n;
@@ -252,5 +285,3 @@ void User::ClearScreen( void )
 		cout<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl;
 	}
 } //Bass-Ackward way to clear the screen, but it works for now
-
-

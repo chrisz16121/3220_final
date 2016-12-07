@@ -15,12 +15,11 @@
 
 using namespace std;
 
-void fileHandler(void);
+int fileHandler(void);
 class User //this class handles just about everything, i got rid of the game class so that the game could access members of the user such as the scores and the number of tokens.
 {
 	private:
 	public:
-		//virtual void Play( void );
 		double simonHigh;//highest score achieved in the simon game
 		double matchingHigh;//highest score achieved in the matching game
 		double score;//the total score that the user has accumulated
@@ -37,6 +36,13 @@ class User //this class handles just about everything, i got rid of the game cla
 		int UserInput[100];
 		int rnd;//keeps track of the round the user is on
 		virtual void scoreboard(void);//void function that calls the scoreboard handler
+		char array[4][4]; 
+		char display[4][4];
+		int points;
+		void MakeArrays( void );
+		void playMemory( void ); 
+		void printFullArray( void ); 
+		void printHiddenArray( void );
 };
 class userAccount : public User
 {
@@ -48,6 +54,7 @@ class userAccount : public User
 		void Play( void );//also overloaded so the game can access the members that guest users do not have
 		virtual void displayInfo(void);//displays the info.. overloaded
 		char username[50];
+		void playMemory();
 };
 class superAccount : public userAccount
 {
@@ -62,6 +69,7 @@ class superAccount : public userAccount
 		superAccount();
 		double scoreMultiplier;
 		double scoreAdder;
+		void playMemory();
 };
 class scoreEntry
 {

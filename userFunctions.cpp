@@ -5,6 +5,8 @@ User::User(){//default constructor for the guest user class
 	tokens = 10;
 	accountType = 1;
 	MakeSimon();
+	MakeArrays();
+	points = 0;
 }
 User::~User(){//destructor for the guest user class
 	cout << "Goodbye!" << endl;
@@ -57,7 +59,7 @@ void superAccount::displayInfo(void){
 	//cout << "HEY THERE! Your a super user aren't you?!?! That means your either the cool dude or the lame one\nPlease, enter your name so we can tell which user you are!!!\nDon't worry, nothing bad will happen if you enter the wrong name!" << endl;//HERES ONE PLACE WE COULD IMPLEMENT EXCEPTION HANDLING
 }
 void userAccount::saveFile(void){//this allows access to the 5 save files available for normal users
- 	fileHandler();
+ 	int dummy = fileHandler();
 	int userOpt;
 	int option;
 	char fileString[50];
@@ -115,8 +117,9 @@ void superAccount::saveFile(void){//save files for the super account, THERE CAN 
 	fclose(fp);
 	cout << "\nYour progress was saved!" << endl;
 }
-void fileHandler(void){//void function that checks all of the files present in the directory, and will display the usernames in those files
+int fileHandler(void){//void function that checks all of the files present in the directory, and will display the usernames in those files
 	int num = 5;
+	int numfiles = 0;
 	int i = 1;
 	char user[50];
 	char fileString[10];
@@ -129,9 +132,11 @@ void fileHandler(void){//void function that checks all of the files present in t
 		else{
 			fscanf(fp,"%s",user);
 			cout << "Save File " << i << ": Saved data present - "<< user << endl;
+			numfiles++;
 		}
 		i++;
 	}
+	return numfiles;
 }
 void superAccount::modify(void){//this allows the super users to do whatever they wish to their scores and tokens, it also allows them to DELETE other peoples save files just because we are assholes like that sometimes
 	int terminator = 0;//another terminator value that gets us out of our menu loop
@@ -166,21 +171,21 @@ void superAccount::modify(void){//this allows the super users to do whatever the
 				cout << "What do you want to have added to your scores?" << endl;
 				cin >> num2;
 				scoreAdder = num2;
-				cout << "Your scores will now have " << scoreAdder << "points appended after each game" << endl;
+				cout << "Your scores will now have " << scoreAdder << " points appended after each game" << endl;
 				break;
 			case 3: 
 				double num3;
-				cout << "You currently have " << tokens << "how many would you like to add?" << endl;
+				cout << "You currently have " << tokens << " how many would you like to add?" << endl;
 				cin >> num3;
 				tokens = tokens + num3;
-				cout << "You now have " << tokens << "tokens" << endl;
+				cout << "You now have " << tokens << " tokens" << endl;
 				break;
 			case 4: 
 				double num4;
-				cout << "You currently have " << score << "points how many would you like to add?" << endl;
+				cout << "You currently have " << score << " points how many would you like to add?" << endl;
 				cin >> num4;
 				score = score + num4;
-				cout << "You now have " << score << "points" << endl;
+				cout << "You now have " << score << " points" << endl;
 				break;
 			case 5:
 				int userOpt;
@@ -202,7 +207,8 @@ void superAccount::modify(void){//this allows the super users to do whatever the
 					}
 				}
 				if(userOpt == 1){
-					fileHandler();
+					int dummy;
+					dummy = fileHandler();
 					cout << "Which file would you like to delete?" << endl;
 					while(true){
 						cin >> fileOption;
