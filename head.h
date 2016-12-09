@@ -62,11 +62,11 @@ class superAccount : public userAccount
 		string password;
 
 	public:
-		void modify(void);
-		void saveFile(void);
-		void Play( void );
+		void modify(void);//only function that super user have unique
+		void saveFile(void);//different from the user account saveFile..
+		void Play( void );//again, different
 		void displayInfo(void);
-		superAccount();
+		superAccount();//constructor
 		double scoreMultiplier;
 		double scoreAdder;
 		void playMemory();

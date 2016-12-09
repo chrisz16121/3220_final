@@ -84,7 +84,7 @@ int main( void ){
 		}
 					
 	}
-	else if(userORguest == 2){
+	else if(userORguest == 2){//the user wants to play as a user account
 		userAccount user1;
 		cout << "Are you a returning user? (1) yes (2) no" << endl;
 		while(true){

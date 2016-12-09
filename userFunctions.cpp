@@ -56,7 +56,6 @@ void userAccount::displayInfo(void){
 void superAccount::displayInfo(void){
 	cout << "Hello there, " << username << " You currently have " << tokens << " tokens, and your current score is " << score << endl;
 	cout << "Your current score multiplier is " << scoreMultiplier << "\n" << scoreAdder << " points will be added to every score you recieve in games" << endl;
-	//cout << "HEY THERE! Your a super user aren't you?!?! That means your either the cool dude or the lame one\nPlease, enter your name so we can tell which user you are!!!\nDon't worry, nothing bad will happen if you enter the wrong name!" << endl;//HERES ONE PLACE WE COULD IMPLEMENT EXCEPTION HANDLING
 }
 void userAccount::saveFile(void){//this allows access to the 5 save files available for normal users
  	int dummy = fileHandler();
@@ -267,8 +266,7 @@ void userAccount::scoreboard(void){//void function that will create a score clas
 			}
 		}
 		switch(userOpt){
-			case 1: 	
-			//	entry.displayBoard();
+			case 1: 
 				entry.sortByScore();//using the member functions of the score entry class 
 				entry.displayBoard();//all void functions
 				break;
