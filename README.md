@@ -1,6 +1,27 @@
 # 3220_final
 3220 Final Project - Ian Naeger, Christopher Smith
 
+**Notes on the code**
+>code still contains severals portions that are commented out, these are mainly in place to ensure we can easily debug (visually in this case) should our functions stop working
+>the SAVEFILES directory is where all of the save files will be stored. chris.txt and ian.txt ARE ALWAYS PRESENT AND SHOULD NOT BE DELETED 
+
+**How to use program**
+>To compile our program, simply be in the main directory and run the "make" command, this will compile all source files and create the executable named "./final"
+>to run this executable, simply run the "./final" command
+>NO command line arguments will be needed, and none will be understood by our program
+>Our program then walks the user step by step, asking questions along the way to gather its corresponding inputs and give the correct outputs
+
+**Known issues / Bugs**
+>a user account still has the ability to overwrite someone elses account, should they try to save their data where it already exists. and then opt to overwrite
+
+**PLEASE SEE final_report1.pdf FOR FINAL PROJECT REPORT**
+
+
+
+
+
+
+//this is old stuff, kept it anyways
 ** Project proposal **
 We intend to build a casino like gaming experience, one which will contain TWO mini games that the user can play
 
@@ -22,16 +43,4 @@ users will be able to delete their accounts (and memory must be freed correctly 
 main functionality will be the points system, which needs to be kept track of and updated with each game played
 
 
-**Notes on the code**
->code still contains severals portions that are commented out, these are mainly in place to ensure we can easily debug (visually in this case) should our functions stop working
->
 
-**How to use program**
->To compile our program, simply be in the main directory and run the "make" command, this will compile all source files and create the executable named "./final"
->to run this executable, simply run the "./final" command
->NO command line arguments will be needed, and none will be understood by our program
->Our program then walks the user step by step, asking questions along the way to gather its corresponding inputs and give the correct outputs
-
-**Known issues / Bugs**
->the simon says game is not working quite right at the moment, we need to ensure that it will terminate as soon as the user enters an incorrect number
->
